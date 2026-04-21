@@ -17,30 +17,30 @@ export function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen bg-background overflow-hidden">
+    <section className="relative min-h-[100svh] bg-background overflow-hidden">
       {/* Animated Background Elements */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-40 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-primary/5 to-transparent rounded-full" />
+        <div className="absolute right-[-6rem] top-16 h-64 w-64 rounded-full bg-primary/10 blur-3xl animate-float sm:right-10 sm:h-80 sm:w-80 lg:right-20 lg:h-96 lg:w-96" />
+        <div className="absolute bottom-40 left-[-5rem] h-56 w-56 rounded-full bg-primary/5 blur-3xl animate-float sm:left-10 sm:h-72 sm:w-72" style={{ animationDelay: '1s' }} />
+        <div className="absolute left-1/2 top-1/2 h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-radial from-primary/5 to-transparent sm:h-[36rem] sm:w-[36rem] lg:h-[50rem] lg:w-[50rem]" />
       </div>
 
       {/* Grid Pattern Overlay */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,208,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,208,0,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
 
       {/* Navigation */}
-      <nav className={`relative z-50 flex items-center justify-between px-6 lg:px-12 py-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
-        <div className="flex items-center gap-3">
+      <nav className={`relative z-50 flex items-center justify-between gap-4 px-4 py-5 transition-all duration-700 sm:px-6 lg:px-12 lg:py-6 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
+        <div className="flex min-w-0 items-center gap-3">
           <div className="relative">
             <Image
-              src="/logo.png"
+              src="/logo-mark-transparent.png"
               alt="Warehouse Gym"
               width={56}
               height={56}
-              className="h-14 w-14"
+              className="h-11 w-11 object-contain sm:h-14 sm:w-14"
             />
           </div>
-          <span className="text-2xl font-bold text-foreground tracking-tight">WAREHOUSE</span>
+          <span className="truncate text-lg font-bold tracking-tight text-foreground sm:text-2xl">WAREHOUSE</span>
         </div>
 
         <div className="hidden md:flex items-center gap-8">
@@ -54,17 +54,17 @@ export function Hero() {
           href={`https://wa.me/${whatsappNumber}?text=${bookTourMessage}`}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="inline-flex h-9 shrink-0 items-center justify-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:px-6"
         >
           Book a Tour
         </a>
       </nav>
 
       {/* Hero Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 pt-12 lg:pt-20 pb-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-24 pt-8 sm:px-6 sm:pb-28 lg:px-12 lg:pb-32 lg:pt-20">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Left Content */}
-          <div className={`space-y-8 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className={`space-y-6 transition-all duration-1000 delay-200 sm:space-y-8 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             {/* Badge */}
             <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2">
               <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
@@ -72,7 +72,7 @@ export function Hero() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-5xl lg:text-7xl font-black text-foreground leading-[1.1] tracking-tight text-balance">
+            <h1 className="text-4xl font-black leading-[1.08] tracking-tight text-foreground text-balance sm:text-5xl lg:text-7xl">
               Push Your
               <span className="relative inline-block ml-3">
                 <span className="text-primary">Limits</span>
@@ -83,24 +83,24 @@ export function Hero() {
             </h1>
 
             {/* Subheadline */}
-            <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
+            <p className="max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg lg:text-xl">
               More than a gym. A complete transformation ecosystem with cutting-edge equipment, elite professionals, and a community that inspires.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:gap-4 sm:pt-4">
               <a
                 href={`https://wa.me/${whatsappNumber}?text=${startNowMessage}`}
                 target="_blank"
                 rel="noreferrer"
-                className="group inline-flex h-auto items-center justify-center rounded-md bg-primary px-8 py-6 text-lg font-bold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_40px_rgba(255,208,0,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="group inline-flex h-auto items-center justify-center rounded-md bg-primary px-6 py-4 text-base font-bold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_40px_rgba(255,208,0,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:px-8 sm:py-6 sm:text-lg"
               >
                 Start Now
                 <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </a>
               <a
                 href="#virtual-tour"
-                className="group inline-flex h-auto items-center justify-center rounded-md border-2 border-border bg-background/20 px-8 py-6 text-lg font-bold text-foreground transition-all duration-300 hover:border-primary hover:bg-background/70 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="group inline-flex h-auto items-center justify-center rounded-md border-2 border-border bg-background/20 px-6 py-4 text-base font-bold text-foreground transition-all duration-300 hover:border-primary hover:bg-background/70 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:px-8 sm:py-6 sm:text-lg"
               >
                 <Play className="mr-2 w-5 h-5" />
                 Virtual Tour
@@ -108,30 +108,30 @@ export function Hero() {
             </div>
 
             {/* Stats */}
-            <div className="flex gap-12 pt-8">
+            <div className="grid grid-cols-3 gap-3 pt-4 sm:flex sm:gap-10 sm:pt-8 lg:gap-12">
               <div className="group">
-                <p className="text-4xl font-black text-primary group-hover:scale-110 transition-transform">
+                <p className="text-2xl font-black text-primary transition-transform group-hover:scale-110 sm:text-4xl">
                   <AnimatedNumber value={500} start={isVisible} suffix="+" />
                 </p>
-                <p className="text-muted-foreground text-sm mt-1 font-medium">Active Members</p>
+                <p className="mt-1 text-xs font-medium text-muted-foreground sm:text-sm">Active Members</p>
               </div>
               <div className="group">
-                <p className="text-4xl font-black text-primary group-hover:scale-110 transition-transform">
+                <p className="text-2xl font-black text-primary transition-transform group-hover:scale-110 sm:text-4xl">
                   <AnimatedNumber value={15} start={isVisible} />
                 </p>
-                <p className="text-muted-foreground text-sm mt-1 font-medium">Years of Experience</p>
+                <p className="mt-1 text-xs font-medium text-muted-foreground sm:text-sm">Years of Experience</p>
               </div>
               <div className="group">
-                <p className="text-4xl font-black text-primary group-hover:scale-110 transition-transform">
+                <p className="text-2xl font-black text-primary transition-transform group-hover:scale-110 sm:text-4xl">
                   <AnimatedNumber value={35} start={isVisible} suffix="+" />
                 </p>
-                <p className="text-muted-foreground text-sm mt-1 font-medium">Professionals</p>
+                <p className="mt-1 text-xs font-medium text-muted-foreground sm:text-sm">Professionals</p>
               </div>
             </div>
           </div>
 
           {/* Right Content - Visual Element */}
-          <div className={`relative transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+          <div className={`relative hidden transition-all duration-1000 delay-400 sm:block ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             {/* Main Visual */}
             <div className="relative">
               {/* Glowing Ring */}
@@ -143,7 +143,7 @@ export function Hero() {
               </div>
 
               {/* Center Logo */}
-              <div className="relative flex items-center justify-center h-[400px] lg:h-[500px]">
+              <div className="relative flex h-[360px] items-center justify-center lg:h-[500px]">
                 <div className="relative w-48 h-48 lg:w-64 lg:h-64 animate-float">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80 rounded-full blur-2xl opacity-30" />
                   <div className="relative w-full h-full bg-card rounded-full border-4 border-primary flex items-center justify-center shadow-2xl">

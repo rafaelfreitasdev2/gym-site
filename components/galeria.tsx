@@ -147,18 +147,18 @@ export function Galeria() {
   }, [selectedSpace])
 
   return (
-    <section ref={sectionRef} id="virtual-tour" className="py-32 px-6 lg:px-12 bg-secondary/30 relative overflow-hidden">
+    <section ref={sectionRef} id="virtual-tour" className="relative overflow-hidden bg-secondary/30 px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-32">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`mb-12 flex flex-col gap-5 transition-all duration-700 sm:mb-16 lg:flex-row lg:items-end lg:justify-between lg:gap-6 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div>
             <span className="inline-block text-primary text-sm font-bold tracking-wider uppercase mb-4">Our Spaces</span>
-            <h2 className="text-4xl lg:text-6xl font-black text-foreground text-balance">
+            <h2 className="text-3xl font-black text-foreground text-balance sm:text-4xl lg:text-6xl">
               World-class
-              <span className="text-primary ml-3">infrastructure</span>
+              <span className="ml-2 text-primary sm:ml-3">infrastructure</span>
             </h2>
           </div>
-          <p className="text-muted-foreground text-lg max-w-md">
+          <p className="max-w-md text-base text-muted-foreground sm:text-lg">
             Every square meter was designed to maximize your experience and results.
           </p>
         </div>
@@ -168,7 +168,7 @@ export function Galeria() {
             {spaces.map((space, idx) => (
               <div
                 key={space.title}
-                className={`group relative min-h-[240px] overflow-hidden rounded-lg border border-border hover:border-primary/60 transition-all duration-500 ${space.className}`}
+                className={`group relative min-h-[260px] overflow-hidden rounded-lg border border-border transition-all duration-500 hover:border-primary/60 sm:min-h-[300px] ${space.className}`}
               >
                 <Image
                   src={space.image}
@@ -179,24 +179,24 @@ export function Galeria() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background/10" />
                 <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(255,208,0,0.08)_0,rgba(255,208,0,0.08)_8px,transparent_8px,transparent_18px)] opacity-40" />
-                <div className="absolute inset-0 p-6 lg:p-8 flex flex-col justify-between">
+                <div className="absolute inset-0 flex flex-col justify-between p-5 sm:p-6 lg:p-8">
                   <div className="flex items-start justify-between gap-4">
-                    <span className="text-5xl lg:text-6xl font-black text-primary/35">
+                    <span className="text-4xl font-black text-primary/35 sm:text-5xl lg:text-6xl">
                       {String(idx + 1).padStart(2, '0')}
                     </span>
                     <button
                       type="button"
                       aria-label={`Open details about ${space.title}`}
                       onClick={() => setSelectedSpace(space)}
-                      className="w-12 h-12 rounded-full bg-primary flex items-center justify-center opacity-0 scale-75 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 hover:bg-primary/90 focus-visible:opacity-100 focus-visible:scale-100 focus-visible:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                      className="flex h-11 w-11 items-center justify-center rounded-full bg-primary transition-all duration-300 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-12 sm:w-12 lg:translate-y-2 lg:scale-75 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:scale-100 lg:group-hover:opacity-100 lg:group-focus-visible:translate-y-0 lg:group-focus-visible:scale-100 lg:group-focus-visible:opacity-100"
                     >
                       <ArrowUpRight className="w-5 h-5 text-primary-foreground" />
                     </button>
                   </div>
 
                   <div>
-                    <h3 className="text-2xl lg:text-3xl font-black text-foreground mb-3">{space.title}</h3>
-                    <p className="text-muted-foreground text-sm lg:text-base font-medium">{space.description}</p>
+                    <h3 className="mb-3 text-xl font-black text-foreground sm:text-2xl lg:text-3xl">{space.title}</h3>
+                    <p className="text-sm font-medium text-muted-foreground lg:text-base">{space.description}</p>
                   </div>
                 </div>
               </div>
@@ -207,7 +207,7 @@ export function Galeria() {
 
       {selectedSpace && (
         <div
-          className="fixed inset-0 z-[100] bg-background/85 backdrop-blur-sm px-6 py-8 overflow-y-auto"
+          className="fixed inset-0 z-[100] overflow-y-auto bg-background/85 px-4 py-5 backdrop-blur-sm sm:px-6 sm:py-8"
           role="dialog"
           aria-modal="true"
           aria-labelledby="space-modal-title"
@@ -217,7 +217,7 @@ export function Galeria() {
             className="relative mx-auto max-w-5xl overflow-hidden rounded-lg border border-border bg-card shadow-2xl"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="relative min-h-[260px]">
+            <div className="relative min-h-[320px] sm:min-h-[300px]">
               <Image
                 src={selectedSpace.image}
                 alt={selectedSpace.title}
@@ -230,20 +230,20 @@ export function Galeria() {
                 type="button"
                 aria-label="Close modal"
                 onClick={() => setSelectedSpace(null)}
-                className="absolute right-5 top-5 w-10 h-10 rounded-full bg-background/80 border border-border flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+                className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background/80 text-foreground transition-colors hover:bg-primary hover:text-primary-foreground sm:right-5 sm:top-5"
               >
                 <X className="w-5 h-5" />
               </button>
-              <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 md:p-8">
                 <p className="text-primary text-sm font-bold uppercase tracking-wider mb-3">Space details</p>
-                <h3 id="space-modal-title" className="text-3xl md:text-5xl font-black text-foreground mb-3">
+                <h3 id="space-modal-title" className="mb-3 text-3xl font-black text-foreground sm:text-4xl md:text-5xl">
                   {selectedSpace.title}
                 </h3>
-                <p className="text-foreground/80 text-lg max-w-3xl">{selectedSpace.details}</p>
+                <p className="max-w-3xl text-base text-foreground/80 sm:text-lg">{selectedSpace.details}</p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6 md:p-8">
+            <div className="grid grid-cols-1 gap-6 p-5 sm:p-6 md:p-8 lg:grid-cols-3">
               <div>
                 <div className="flex items-center gap-3 mb-5">
                   <UserRound className="w-5 h-5 text-primary" />
@@ -290,8 +290,8 @@ export function Galeria() {
               </div>
             </div>
 
-            <div className="border-t border-border p-6 md:p-8">
-              <div className="flex flex-col gap-5 rounded-lg bg-background/50 p-5 md:flex-row md:items-center md:justify-between">
+            <div className="border-t border-border p-5 sm:p-6 md:p-8">
+              <div className="flex flex-col gap-5 rounded-lg bg-background/50 p-4 sm:p-5 md:flex-row md:items-center md:justify-between">
                 <div>
                   <div className="mb-2 flex items-center gap-3">
                     <CalendarCheck className="h-5 w-5 text-primary" />

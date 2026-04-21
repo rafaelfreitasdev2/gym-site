@@ -70,29 +70,29 @@ export function Sobre() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-32 px-6 lg:px-12 bg-secondary/30 relative overflow-hidden">
+    <section ref={sectionRef} className="relative overflow-hidden bg-secondary/30 px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-32">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,208,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,208,0,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
 
       <div className="max-w-7xl mx-auto relative">
-        <div className={`text-center mb-20 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`mb-12 text-center transition-all duration-700 sm:mb-16 lg:mb-20 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <span className="inline-block text-primary text-sm font-bold tracking-wider uppercase mb-4">About Us</span>
-          <h2 className="text-4xl lg:text-6xl font-black text-foreground mb-6 text-balance">
+          <h2 className="mb-5 text-3xl font-black text-foreground text-balance sm:text-4xl lg:mb-6 lg:text-6xl">
             <AnimatedNumber value={15} start={isVisible} /> years transforming
-            <span className="text-primary ml-3">lives</span>
+            <span className="ml-2 text-primary sm:ml-3">lives</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+          <p className="mx-auto max-w-3xl text-base text-muted-foreground sm:text-lg">
             Since <AnimatedNumber value={2009} start={isVisible} />, Warehouse has been synonymous with excellence in the fitness market. We were born with the mission to offer an unparalleled gym experience, and today we are a reference in real transformations.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+        <div className="mb-12 grid grid-cols-1 gap-6 sm:mb-16 md:grid-cols-3 lg:mb-20">
           {values.map((value, idx) => {
             const Icon = value.icon
 
             return (
               <div
                 key={value.title}
-                className={`group bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,208,0,0.1)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                className={`group rounded-lg border border-border bg-card p-6 transition-all duration-500 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(255,208,0,0.1)] sm:p-8 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 style={{ transitionDelay: `${idx * 150}ms` }}
               >
                 <div className="w-14 h-14 rounded-xl bg-primary/10 group-hover:bg-primary flex items-center justify-center mb-6 transition-all duration-500">
@@ -105,15 +105,15 @@ export function Sobre() {
           })}
         </div>
 
-        <div ref={statsRef} className={`bg-card border border-border rounded-2xl p-8 md:p-12 transition-all duration-700 delay-500 ${statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div ref={statsRef} className={`rounded-lg border border-border bg-card p-5 transition-all duration-700 delay-500 sm:p-8 md:p-12 ${statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="grid grid-cols-2 gap-5 sm:gap-8 md:grid-cols-4">
             {stats.map((stat, idx) => (
               <div
                 key={stat.label}
                 className={`text-center group transition-all duration-700 ${statsVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
                 style={{ transitionDelay: `${idx * 100}ms` }}
               >
-                <p className={`text-4xl md:text-5xl font-black text-primary mb-2 group-hover:scale-110 transition-all duration-700 ${statsVisible ? 'tracking-normal' : 'tracking-[0.35em]'}`}>
+                <p className={`mb-2 text-3xl font-black text-primary transition-all duration-700 group-hover:scale-110 sm:text-4xl md:text-5xl ${statsVisible ? 'tracking-normal' : 'tracking-[0.35em]'}`}>
                   <AnimatedNumber
                     value={stat.value}
                     start={statsVisible}
@@ -122,7 +122,7 @@ export function Sobre() {
                     suffix={stat.suffix}
                   />
                 </p>
-                <p className="text-muted-foreground font-medium">{stat.label}</p>
+                <p className="text-sm font-medium text-muted-foreground sm:text-base">{stat.label}</p>
               </div>
             ))}
           </div>

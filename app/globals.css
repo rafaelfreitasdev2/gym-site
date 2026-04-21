@@ -59,8 +59,11 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    @apply overflow-x-hidden;
+  }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply overflow-x-hidden bg-background text-foreground antialiased;
   }
 }
 
@@ -86,6 +89,11 @@
   100% { background-position: 0% 50%; }
 }
 
+@keyframes testimonials-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
@@ -101,6 +109,20 @@
 .animate-gradient {
   background-size: 200% 200%;
   animation: gradient-shift 4s ease infinite;
+}
+
+.animate-testimonials-marquee {
+  animation: testimonials-marquee 46s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-pulse-glow,
+  .animate-slide-up,
+  .animate-gradient,
+  .animate-testimonials-marquee {
+    animation: none;
+  }
 }
 
 /* Smooth scroll */

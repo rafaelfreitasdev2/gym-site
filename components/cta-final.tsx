@@ -29,11 +29,11 @@ export function CTAFinal() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-32 px-6 lg:px-12 bg-background relative overflow-hidden">
+    <section ref={sectionRef} className="relative overflow-hidden bg-background px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-32">
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1.5s' }} />
+        <div className="absolute left-[-5rem] top-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl animate-float sm:left-1/4 sm:h-96 sm:w-96" />
+        <div className="absolute bottom-0 right-[-5rem] h-72 w-72 rounded-full bg-primary/10 blur-3xl animate-float sm:right-1/4 sm:h-96 sm:w-96" style={{ animationDelay: '1.5s' }} />
       </div>
 
       {/* Grid Pattern */}
@@ -48,23 +48,23 @@ export function CTAFinal() {
           </div>
 
           {/* Headline */}
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-foreground mb-6 leading-[1.1] text-balance">
+          <h2 className="mb-5 text-3xl font-black leading-[1.1] text-foreground text-balance sm:text-4xl md:text-6xl lg:mb-6 lg:text-7xl">
             Your transformation
             <span className="block text-primary">starts now</span>
           </h2>
 
           {/* Subheadline */}
-          <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:mb-10 lg:text-xl">
             Don&apos;t put off until tomorrow what can change your life today. Book your free tour and discover why we&apos;re the top-rated gym in Europe.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="mb-10 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 lg:mb-12">
             <a
               href={`https://wa.me/${whatsappNumber}?text=${bookTourMessage}`}
               target="_blank"
               rel="noreferrer"
-              className="group inline-flex h-auto items-center justify-center rounded-md bg-primary px-10 py-7 text-lg font-bold text-primary-foreground transition-all duration-300 hover:scale-105 hover:bg-primary/90 hover:shadow-[0_0_60px_rgba(255,208,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="group inline-flex h-auto items-center justify-center rounded-md bg-primary px-6 py-4 text-base font-bold text-primary-foreground transition-all duration-300 hover:scale-105 hover:bg-primary/90 hover:shadow-[0_0_60px_rgba(255,208,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:px-10 sm:py-7 sm:text-lg"
             >
               Book a Free Tour
               <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -73,7 +73,7 @@ export function CTAFinal() {
               href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-auto items-center justify-center rounded-md border-2 border-border bg-background/20 px-10 py-7 text-lg font-bold text-foreground transition-all duration-300 hover:border-primary hover:bg-background/70 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="inline-flex h-auto items-center justify-center rounded-md border-2 border-border bg-background/20 px-6 py-4 text-base font-bold text-foreground transition-all duration-300 hover:border-primary hover:bg-background/70 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:px-10 sm:py-7 sm:text-lg"
             >
               Message on WhatsApp
             </a>

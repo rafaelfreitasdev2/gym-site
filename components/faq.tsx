@@ -58,16 +58,16 @@ export function FAQ() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-32 px-6 lg:px-12 bg-secondary/30 relative">
+    <section ref={sectionRef} className="relative bg-secondary/30 px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-32">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`mb-12 text-center transition-all duration-700 sm:mb-16 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <span className="inline-block text-primary text-sm font-bold tracking-wider uppercase mb-4">FAQ</span>
-          <h2 className="text-4xl lg:text-5xl font-black text-foreground mb-6 text-balance">
+          <h2 className="mb-5 text-3xl font-black text-foreground text-balance sm:text-4xl lg:mb-6 lg:text-5xl">
             Frequently asked
-            <span className="text-primary ml-3">questions</span>
+            <span className="ml-2 text-primary sm:ml-3">questions</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-base text-muted-foreground sm:text-lg">
             Get answers about plans, facilities, and how we operate.
           </p>
         </div>
@@ -80,7 +80,7 @@ export function FAQ() {
             return (
               <div
                 key={faq.question}
-                className={`bg-card border rounded-xl overflow-hidden transition-all duration-500 ${isActive ? 'border-primary/50 shadow-[0_0_30px_rgba(255,208,0,0.1)]' : 'border-border'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                className={`overflow-hidden rounded-lg border bg-card transition-all duration-500 ${isActive ? 'border-primary/50 shadow-[0_0_30px_rgba(255,208,0,0.1)]' : 'border-border'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 style={{ transitionDelay: `${idx * 75}ms` }}
               >
                 <button
@@ -89,7 +89,7 @@ export function FAQ() {
                   aria-controls={`faq-panel-${idx}`}
                   id={`faq-trigger-${idx}`}
                   onClick={() => setActiveIdx(isActive ? null : idx)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-secondary/50 transition-colors duration-300"
+                  className="flex w-full items-center justify-between px-5 py-5 text-left transition-colors duration-300 hover:bg-secondary/50 sm:px-6"
                 >
                   <span className={`font-bold transition-colors duration-300 ${isActive ? 'text-primary' : 'text-foreground'}`}>
                     {faq.question}

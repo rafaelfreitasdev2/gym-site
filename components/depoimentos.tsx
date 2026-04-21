@@ -1,7 +1,9 @@
 'use client'
 
 import { Star, Quote } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import useEmblaCarousel from 'embla-carousel-react'
+import AutoScroll from 'embla-carousel-auto-scroll'
 import { AnimatedNumber } from '@/components/animated-number'
 
 const testimonials = [
@@ -32,6 +34,13 @@ const testimonials = [
     duration: { value: 4, suffix: ' months' },
     feedback: 'The pilates classes are incredible. Attentive instructors and an environment that inspires you to push beyond.',
     avatar: 'ET'
+  },
+  {
+    name: 'Lucas Martins',
+    result: { value: 9, prefix: '+', suffix: 'kg strength gain' },
+    duration: { value: 5, suffix: ' months' },
+    feedback: 'The structure, the classes, and the coaches made training feel consistent for the first time in my life.',
+    avatar: 'LM'
   }
 ]
 
@@ -45,8 +54,32 @@ const stats = [
 export function Depoimentos() {
   const sectionRef = useRef<HTMLElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
+  const autoScroll = useMemo(
+    () =>
+      AutoScroll({
+        direction: 'forward',
+        playOnInit: true,
+        speed: 0.8,
+        startDelay: 0,
+        stopOnFocusIn: false,
+        stopOnInteraction: false,
+        stopOnMouseEnter: false,
+      }),
+    []
+  )
+  const [emblaRef] = useEmblaCarousel(
+    {
+      align: 'start',
+      containScroll: false,
+      dragFree: true,
+      loop: true,
+      skipSnaps: true,
+    },
+    [autoScroll]
+  )
   const [isVisible, setIsVisible] = useState(false)
   const [statsVisible, setStatsVisible] = useState(false)
+  const carouselTestimonials = [...testimonials, ...testimonials, ...testimonials]
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -83,34 +116,39 @@ export function Depoimentos() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-32 px-6 lg:px-12 bg-secondary/30 relative overflow-hidden">
+    <section ref={sectionRef} className="relative overflow-hidden bg-secondary/30 px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-28">
       {/* Background Decoration */}
       <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto relative">
         {/* Header */}
-        <div className={`text-center mb-20 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`mb-10 text-center transition-all duration-700 sm:mb-12 lg:mb-14 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <span className="inline-block text-primary text-sm font-bold tracking-wider uppercase mb-4">Testimonials</span>
-          <h2 className="text-4xl lg:text-6xl font-black text-foreground mb-6 text-balance">
+          <h2 className="mb-5 text-3xl font-black text-foreground text-balance sm:text-4xl lg:mb-6 lg:text-6xl">
             Stories of
-            <span className="text-primary ml-3">transformation</span>
+            <span className="ml-2 text-primary sm:ml-3">transformation</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
             Over <AnimatedNumber value={500} start={isVisible} /> lives transformed. Discover some of the stories from those who are already part of the Warehouse family.
           </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {testimonials.map((testimonial, idx) => (
+        {/* Testimonials Marquee */}
+        <div className={`relative -mx-4 overflow-hidden sm:-mx-6 lg:-mx-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-secondary/30 to-transparent sm:w-28" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-secondary/30 to-transparent sm:w-28" />
+
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex touch-pan-y gap-5 px-4 sm:gap-6 sm:px-6 lg:px-12">
+              {carouselTestimonials.map((testimonial, idx) => (
             <div
-              key={idx}
-              className={`group bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,208,0,0.1)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-              style={{ transitionDelay: `${idx * 150}ms` }}
+              key={`${testimonial.name}-${idx}`}
+              className="group flex min-h-[300px] w-[min(82vw,420px)] shrink-0 flex-col rounded-lg border border-border bg-card p-6 transition-all duration-500 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(255,208,0,0.1)] sm:w-[500px] sm:p-8 lg:w-[560px]"
+              aria-hidden={idx >= testimonials.length}
             >
               {/* Quote Icon */}
-              <Quote className="w-10 h-10 text-primary/20 mb-6" />
+              <Quote className="mb-6 h-10 w-10 text-primary/20" />
 
               {/* Stars */}
               <div className="flex gap-1 mb-4">
@@ -120,12 +158,12 @@ export function Depoimentos() {
               </div>
 
               {/* Feedback */}
-              <p className="text-foreground text-lg leading-relaxed mb-8">
+              <p className="mb-8 text-base leading-relaxed text-foreground sm:text-lg">
                 &quot;{testimonial.feedback}&quot;
               </p>
 
               {/* Author */}
-              <div className="flex items-center justify-between pt-6 border-t border-border">
+              <div className="mt-auto flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-4">
                   {/* Avatar */}
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -147,7 +185,7 @@ export function Depoimentos() {
                 </div>
 
                 {/* Result Badge */}
-                <div className="hidden sm:block bg-primary/10 px-4 py-2 rounded-full">
+                <div className="w-fit rounded-full bg-primary/10 px-4 py-2">
                   <span className="text-primary font-bold text-sm">
                     {'label' in testimonial.result ? (
                       testimonial.result.label
@@ -165,18 +203,20 @@ export function Depoimentos() {
                 </div>
               </div>
             </div>
-          ))}
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Stats Row */}
-        <div ref={statsRef} className={`mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 transition-all duration-700 delay-500 ${statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div ref={statsRef} className={`mt-12 grid grid-cols-2 gap-4 transition-all duration-700 delay-500 sm:mt-16 sm:gap-6 md:grid-cols-4 ${statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {stats.map((stat, idx) => (
             <div
               key={stat.label}
-              className={`text-center p-6 bg-card border border-border rounded-xl transition-all duration-700 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(255,208,0,0.1)] ${statsVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+              className={`rounded-lg border border-border bg-card p-4 text-center transition-all duration-700 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(255,208,0,0.1)] sm:p-6 ${statsVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
               style={{ transitionDelay: `${idx * 140}ms` }}
             >
-              <p className={`text-3xl font-black text-primary mb-1 transition-all duration-700 hover:scale-110 ${statsVisible ? 'tracking-normal' : 'tracking-[0.35em]'}`}>
+              <p className={`mb-1 text-2xl font-black text-primary transition-all duration-700 hover:scale-110 sm:text-3xl ${statsVisible ? 'tracking-normal' : 'tracking-[0.35em]'}`}>
                 <AnimatedNumber
                   value={stat.value}
                   start={statsVisible}

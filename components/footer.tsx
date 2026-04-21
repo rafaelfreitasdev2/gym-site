@@ -5,14 +5,14 @@ const instagramUrl = 'https://www.instagram.com/warehouse.mt/'
 
 export function Footer() {
   return (
-    <footer className="bg-card border-t border-border py-16 px-6 lg:px-12">
+    <footer className="border-t border-border bg-card px-4 py-12 sm:px-6 sm:py-16 lg:px-12">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 pb-12 border-b border-border">
+        <div className="mb-10 grid grid-cols-1 gap-10 border-b border-border pb-10 sm:mb-12 sm:gap-12 sm:pb-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
               <Image
-                src="/logo-symbol.png"
+                src="/logo-mark-transparent.png"
                 alt="Warehouse"
                 width={48}
                 height={48}
@@ -86,7 +86,7 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="grid grid-cols-1 items-center gap-4 text-center md:grid-cols-3 md:text-left">
+        <div className="grid grid-cols-1 items-center gap-5 text-center md:grid-cols-3 md:text-left">
           <p className="text-muted-foreground text-sm">
             &copy; 2024 Warehouse Gym. All rights reserved.
           </p>
@@ -101,7 +101,7 @@ export function Footer() {
             <span className="font-bold text-primary">rafaeldev</span>
           </a>
 
-          <div className="flex justify-center gap-6 text-sm md:justify-end">
+          <div className="flex flex-wrap justify-center gap-4 text-sm sm:gap-6 md:justify-end">
             <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
               Terms of Service
             </a>

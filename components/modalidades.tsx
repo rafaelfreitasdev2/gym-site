@@ -149,15 +149,15 @@ export function Modalidades() {
   }, [selectedClass])
 
   return (
-    <section ref={sectionRef} id="classes" className="py-28 px-6 lg:px-12 bg-background relative">
+    <section ref={sectionRef} id="classes" className="relative bg-background px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-28">
       <div className="max-w-7xl mx-auto relative">
-        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`mb-12 text-center transition-all duration-700 sm:mb-16 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <span className="inline-block text-primary text-sm font-bold tracking-wider uppercase mb-4">Classes</span>
-          <h2 className="text-4xl lg:text-6xl font-black text-foreground mb-6 text-balance">
+          <h2 className="mb-5 text-3xl font-black text-foreground text-balance sm:text-4xl lg:mb-6 lg:text-6xl">
             Find your
-            <span className="text-primary ml-3">passion</span>
+            <span className="ml-2 text-primary sm:ml-3">passion</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
             From classic modalities to the latest trends, we have the perfect activity for you.
           </p>
         </div>
@@ -171,13 +171,13 @@ export function Modalidades() {
                 type="button"
                 key={cls.title}
                 onClick={() => setSelectedClass(cls)}
-                className="group relative min-h-[360px] overflow-hidden rounded-lg border border-border bg-card text-left transition-all duration-500 hover:-translate-y-1 hover:border-primary/60 hover:shadow-[0_24px_70px_rgba(0,0,0,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="group relative min-h-[300px] overflow-hidden rounded-lg border border-border bg-card text-left transition-all duration-500 hover:-translate-y-1 hover:border-primary/60 hover:shadow-[0_24px_70px_rgba(0,0,0,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:min-h-[340px] lg:min-h-[360px]"
               >
-                <div className="absolute left-8 top-8 z-20 flex h-[60px] w-[60px] items-center justify-center rounded-lg bg-primary/15 text-primary transition-all duration-500 group-hover:bg-primary group-hover:text-primary-foreground">
+                <div className="absolute left-5 top-5 z-20 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/15 text-primary transition-all duration-500 group-hover:bg-primary group-hover:text-primary-foreground sm:left-8 sm:top-8 sm:h-[60px] sm:w-[60px]">
                   <Icon className="h-7 w-7" strokeWidth={2.4} />
                 </div>
 
-                <div className="absolute right-8 top-8 z-20 flex h-12 w-12 translate-y-2 scale-75 items-center justify-center rounded-full bg-primary text-primary-foreground opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:scale-100 group-focus-visible:opacity-100">
+                <div className="absolute right-5 top-5 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground transition-all duration-300 sm:right-8 sm:top-8 sm:h-12 sm:w-12 lg:translate-y-2 lg:scale-75 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:scale-100 lg:group-hover:opacity-100 lg:group-focus-visible:translate-y-0 lg:group-focus-visible:scale-100 lg:group-focus-visible:opacity-100">
                   <ArrowUpRight className="h-5 w-5" />
                 </div>
 
@@ -197,9 +197,9 @@ export function Modalidades() {
                   </div>
                 </div>
 
-                <div className="absolute inset-x-0 bottom-0 z-20 p-8">
-                  <h3 className="mb-3 text-2xl font-black text-foreground">{cls.title}</h3>
-                  <p className="text-base leading-relaxed text-muted-foreground">{cls.description}</p>
+                <div className="absolute inset-x-0 bottom-0 z-20 p-5 sm:p-8">
+                  <h3 className="mb-3 text-xl font-black text-foreground sm:text-2xl">{cls.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">{cls.description}</p>
                 </div>
               </button>
             )
@@ -216,7 +216,7 @@ export function Modalidades() {
 
       {selectedClass && (
         <div
-          className="fixed inset-0 z-[100] overflow-y-auto bg-background/85 px-6 py-8 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] overflow-y-auto bg-background/85 px-4 py-5 backdrop-blur-sm sm:px-6 sm:py-8"
           role="dialog"
           aria-modal="true"
           aria-labelledby="class-modal-title"
@@ -226,7 +226,7 @@ export function Modalidades() {
             className="relative mx-auto max-w-5xl overflow-hidden rounded-lg border border-border bg-card shadow-2xl"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="relative min-h-[280px]">
+            <div className="relative min-h-[330px] sm:min-h-[300px]">
               <Image
                 src={selectedClass.image}
                 alt={selectedClass.title}
@@ -239,20 +239,20 @@ export function Modalidades() {
                 type="button"
                 aria-label="Close modal"
                 onClick={() => setSelectedClass(null)}
-                className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background/80 text-foreground transition-colors hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background/80 text-foreground transition-colors hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:right-5 sm:top-5"
               >
                 <X className="h-5 w-5" />
               </button>
-              <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 md:p-8">
                 <p className="mb-3 text-sm font-bold uppercase tracking-wider text-primary">Class details</p>
-                <h3 id="class-modal-title" className="mb-3 text-3xl font-black text-foreground md:text-5xl">
+                <h3 id="class-modal-title" className="mb-3 text-3xl font-black text-foreground sm:text-4xl md:text-5xl">
                   {selectedClass.title}
                 </h3>
-                <p className="max-w-3xl text-lg text-foreground/80">{selectedClass.details}</p>
+                <p className="max-w-3xl text-base text-foreground/80 sm:text-lg">{selectedClass.details}</p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 p-6 md:p-8 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 p-5 sm:p-6 md:p-8 lg:grid-cols-3">
               <div>
                 <div className="mb-5 flex items-center gap-3">
                   <CalendarDays className="h-5 w-5 text-primary" />
@@ -299,8 +299,8 @@ export function Modalidades() {
               </div>
             </div>
 
-            <div className="border-t border-border p-6 md:p-8">
-              <div className="flex flex-col gap-5 rounded-lg bg-background/50 p-5 md:flex-row md:items-center md:justify-between">
+            <div className="border-t border-border p-5 sm:p-6 md:p-8">
+              <div className="flex flex-col gap-5 rounded-lg bg-background/50 p-4 sm:p-5 md:flex-row md:items-center md:justify-between">
                 <div>
                   <div className="mb-2 flex items-center gap-3">
                     <CalendarCheck className="h-5 w-5 text-primary" />

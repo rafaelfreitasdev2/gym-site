@@ -64,19 +64,19 @@ export function Diferenciais() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="features" className="py-32 px-6 lg:px-12 bg-background relative">
+    <section ref={sectionRef} id="features" className="relative bg-background px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-32">
       {/* Subtle Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,208,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,208,0,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
 
       <div className="max-w-7xl mx-auto relative">
         {/* Header */}
-        <div className={`text-center mb-20 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`mb-12 text-center transition-all duration-700 sm:mb-16 lg:mb-20 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <span className="inline-block text-primary text-sm font-bold tracking-wider uppercase mb-4">Why Choose Us</span>
-          <h2 className="text-4xl lg:text-6xl font-black text-foreground mb-6 text-balance">
+          <h2 className="mb-5 text-3xl font-black text-foreground text-balance sm:text-4xl lg:mb-6 lg:text-6xl">
             What makes us
-            <span className="text-primary ml-3">unique</span>
+            <span className="ml-2 text-primary sm:ml-3">unique</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
             An exclusive combination of premium infrastructure, excellence professionals, and a philosophy focused on real results.
           </p>
         </div>
@@ -88,11 +88,11 @@ export function Diferenciais() {
             return (
               <div
                 key={idx}
-                className={`group relative bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,208,0,0.1)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                className={`group relative rounded-lg border border-border bg-card p-6 transition-all duration-500 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(255,208,0,0.1)] sm:p-8 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 style={{ transitionDelay: `${idx * 100}ms` }}
               >
                 {/* Highlight Badge */}
-                <span className="absolute top-6 right-6 text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">
+                <span className="absolute right-4 top-4 rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary sm:right-6 sm:top-6">
                   {feature.highlight}
                 </span>
 

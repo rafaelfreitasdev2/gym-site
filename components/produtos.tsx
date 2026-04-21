@@ -134,29 +134,29 @@ export function Produtos() {
   )
 
   return (
-    <section ref={sectionRef} className="py-32 px-6 lg:px-12 bg-background relative">
+    <section ref={sectionRef} className="relative bg-background px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-32">
       <div className="max-w-7xl mx-auto">
-        <div className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`mb-12 flex flex-col gap-5 transition-all duration-700 sm:mb-16 lg:flex-row lg:items-end lg:justify-between lg:gap-6 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div>
             <span className="inline-block text-primary text-sm font-bold tracking-wider uppercase mb-4">Warehouse Shop</span>
-            <h2 className="text-4xl lg:text-6xl font-black text-foreground text-balance">
+            <h2 className="text-3xl font-black text-foreground text-balance sm:text-4xl lg:text-6xl">
               Boost your
-              <span className="text-primary ml-3">results</span>
+              <span className="ml-2 text-primary sm:ml-3">results</span>
             </h2>
-            <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
+            <p className="mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
               Supplements, apparel, and daily essentials ready to reserve before your next session.
             </p>
           </div>
 
-          <div className="w-fit rounded-lg border border-border bg-card px-5 py-4">
+          <div className="w-full rounded-lg border border-border bg-card px-5 py-4 sm:w-fit">
             <p className="text-sm font-bold text-muted-foreground">Cart</p>
             <p className="text-2xl font-black text-primary">
-              <AnimatedNumber value={cartCount} start={isVisible} /> items
+              {cartCount} {cartCount === 1 ? 'item' : 'items'}
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px]">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_360px]">
           <div className={`grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             {products.map((product) => {
               const quantity = cart[product.id] ?? 0
@@ -164,13 +164,13 @@ export function Produtos() {
               return (
                 <article
                   key={product.id}
-                  className="group relative min-h-[386px] overflow-hidden rounded-lg border border-border bg-card transition-all duration-500 hover:-translate-y-1 hover:border-primary/60 hover:shadow-[0_24px_70px_rgba(0,0,0,0.32)]"
+                  className="group relative overflow-hidden rounded-lg border border-border bg-card transition-all duration-500 hover:-translate-y-1 hover:border-primary/60 hover:shadow-[0_24px_70px_rgba(0,0,0,0.32)]"
                 >
                   <div className="absolute left-5 top-5 z-20 w-fit rounded-full bg-background/80 px-4 py-2 text-sm font-bold text-primary backdrop-blur-sm">
                     {product.category}
                   </div>
 
-                  <div className="relative h-[210px] overflow-hidden">
+                  <div className="relative h-48 overflow-hidden sm:h-[210px]">
                     <Image
                       src={product.image}
                       alt={product.name}
@@ -181,14 +181,14 @@ export function Produtos() {
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
                   </div>
 
-                  <div className="p-6">
-                    <h3 className="mb-2 text-2xl font-black text-foreground">{product.name}</h3>
+                  <div className="p-5 sm:p-6">
+                    <h3 className="mb-2 text-xl font-black text-foreground sm:text-2xl">{product.name}</h3>
                     <p className="mb-6 min-h-[48px] text-sm leading-relaxed text-muted-foreground">{product.description}</p>
 
-                    <div className="flex items-end justify-between gap-4">
+                    <div className="flex flex-col gap-4 min-[420px]:flex-row min-[420px]:items-end min-[420px]:justify-between">
                       <div>
                         <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Price</p>
-                        <p className="text-4xl font-black text-primary">
+                        <p className="text-3xl font-black text-primary sm:text-4xl">
                           <AnimatedNumber value={product.price} start={isVisible} prefix="EUR " />
                         </p>
                       </div>
@@ -240,7 +240,7 @@ export function Produtos() {
             {cartItems.length > 0 ? (
               <div className="space-y-4">
                 {cartItems.map((product) => (
-                  <div key={product.id} className="flex items-center gap-4 rounded-lg border border-border bg-background/40 p-3">
+                  <div key={product.id} className="flex items-center gap-3 rounded-lg border border-border bg-background/40 p-3 sm:gap-4">
                     <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-background">
                       <Image src={product.image} alt={product.name} fill sizes="64px" className="object-cover" />
                     </div>
@@ -250,14 +250,14 @@ export function Produtos() {
                         {product.quantity} x EUR {product.price}
                       </p>
                     </div>
-                    <p className="font-black text-primary">EUR {product.price * product.quantity}</p>
+                    <p className="shrink-0 text-sm font-black text-primary sm:text-base">EUR {product.price * product.quantity}</p>
                   </div>
                 ))}
 
                 <div className="border-t border-border pt-5">
                   <div className="mb-5 flex items-center justify-between">
                     <span className="font-bold text-foreground">Total</span>
-                    <span className="text-3xl font-black text-primary">EUR {cartTotal}</span>
+                    <span className="text-2xl font-black text-primary sm:text-3xl">EUR {cartTotal}</span>
                   </div>
 
                   <Button asChild className="mb-3 w-full bg-primary text-primary-foreground hover:bg-primary/90">
