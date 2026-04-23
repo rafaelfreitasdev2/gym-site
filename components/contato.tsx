@@ -123,14 +123,16 @@ export function Contato() {
           </div>
 
           {/* Map */}
-          <div className="min-h-[320px] overflow-hidden rounded-lg border border-border bg-card/90 shadow-[0_18px_50px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.03)]">
-            <iframe
-              src={googleMapsEmbedUrl}
-              title="Warehouse Campus Hub location"
-              className="w-full h-[320px] border-0"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+          <div className="overflow-hidden rounded-lg border border-border bg-card/90 shadow-[0_18px_50px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.03)]">
+            <div className="relative h-[300px] min-h-[300px] w-full overflow-hidden bg-secondary sm:h-[320px] sm:min-h-[320px]">
+              <iframe
+                src={googleMapsEmbedUrl}
+                title="Warehouse Campus Hub location"
+                className="absolute inset-0 block h-full w-full border-0"
+                loading="eager"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
             <div className="p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <p className="text-foreground font-bold mb-1">Warehouse Campus Hub</p>
