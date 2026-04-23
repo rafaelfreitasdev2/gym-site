@@ -94,6 +94,27 @@
   to { transform: translateX(-50%); }
 }
 
+@keyframes premium-grid-drift {
+  0% { background-position: 0 0, 0 0, 50% 0; }
+  100% { background-position: 42px 42px, 42px 42px, 50% 100%; }
+}
+
+@keyframes metallic-sweep {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes feature-icon-pop {
+  0% { transform: translateY(8px) scale(0.92); opacity: 0; }
+  55% { transform: translateY(-2px) scale(1.08); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes badge-sheen {
+  0% { transform: translateX(-140%); }
+  100% { transform: translateX(140%); }
+}
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
@@ -115,13 +136,115 @@
   animation: testimonials-marquee 46s linear infinite;
 }
 
+.premium-feature-grid {
+  background-image:
+    linear-gradient(rgba(255, 208, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 208, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 208, 0, 0.05), transparent 38%, rgba(255, 208, 0, 0.035));
+  background-size: 42px 42px, 42px 42px, 100% 100%;
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+  animation: premium-grid-drift 18s linear infinite;
+}
+
+.premium-kicker {
+  text-shadow: 0 0 22px rgba(255, 208, 0, 0.28);
+}
+
+.premium-metallic-text {
+  display: inline-block;
+  color: transparent;
+  background-image: linear-gradient(110deg, #7a6710 0%, #ffd000 24%, #fff5a8 38%, #ffd000 52%, #8a7414 72%, #ffd000 100%);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: metallic-sweep 4.8s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 24px rgba(255, 208, 0, 0.18));
+}
+
+.premium-reasons-counter {
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-reasons-counter::after,
+.premium-shine-badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 10%, rgba(255, 255, 255, 0.3) 45%, transparent 70%);
+  transform: translateX(-140%);
+  animation: badge-sheen 4s ease-in-out infinite;
+}
+
+.premium-feature-card {
+  isolation: isolate;
+  transform: perspective(900px) rotateX(var(--rotate-x)) rotateY(var(--rotate-y));
+  transform-style: preserve-3d;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  will-change: transform;
+}
+
+.premium-feature-card:hover,
+.premium-feature-card[data-active='true'] {
+  border-color: rgba(255, 208, 0, 0.5);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28), 0 0 42px rgba(255, 208, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.premium-card-spotlight {
+  z-index: 0;
+  background: radial-gradient(280px circle at var(--mouse-x) var(--mouse-y), rgba(255, 208, 0, 0.14), transparent 58%);
+}
+
+.premium-card-edge {
+  z-index: 0;
+  background:
+    linear-gradient(#252523, #252523) padding-box,
+    linear-gradient(135deg, rgba(255, 208, 0, 0.58), transparent 42%, rgba(255, 208, 0, 0.2)) border-box;
+  border: 1px solid transparent;
+}
+
+.premium-shine-badge {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.premium-feature-icon {
+  animation-delay: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.premium-metric-box {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035), 0 14px 30px rgba(0, 0, 0, 0.12);
+  transition: border-color 300ms ease, background-color 300ms ease, box-shadow 300ms ease;
+}
+
+.premium-feature-card:hover .premium-metric-box,
+.premium-feature-card[data-active='true'] .premium-metric-box {
+  border-color: rgba(255, 208, 0, 0.24);
+  background-color: rgba(29, 29, 27, 0.62);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 18px 36px rgba(0, 0, 0, 0.18);
+}
+
+.animate-feature-icon-pop {
+  animation: feature-icon-pop 620ms cubic-bezier(0.2, 0.85, 0.2, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
   .animate-pulse-glow,
   .animate-slide-up,
   .animate-gradient,
-  .animate-testimonials-marquee {
+  .animate-testimonials-marquee,
+  .premium-feature-grid,
+  .premium-metallic-text,
+  .premium-reasons-counter::after,
+  .premium-shine-badge::after,
+  .animate-feature-icon-pop {
     animation: none;
+  }
+
+  .premium-feature-card {
+    transform: none;
   }
 }
 

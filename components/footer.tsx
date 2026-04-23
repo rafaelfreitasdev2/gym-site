@@ -5,7 +5,7 @@ const instagramUrl = 'https://www.instagram.com/warehouse.mt/'
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-card px-4 py-12 sm:px-6 sm:py-16 lg:px-12">
+    <footer className="border-t border-border bg-card/95 px-4 py-12 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] sm:px-6 sm:py-16 lg:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="mb-10 grid grid-cols-1 gap-10 border-b border-border pb-10 sm:mb-12 sm:gap-12 sm:pb-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
@@ -24,10 +24,10 @@ export function Footer() {
               Premium gym in Europe. 15 years transforming lives through high-performance fitness.
             </p>
             <div className="flex gap-3">
-              <a href={instagramUrl} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-lg bg-secondary hover:bg-primary flex items-center justify-center transition-all duration-300 group">
+              <a href={instagramUrl} target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary transition-all duration-300 hover:border-primary/50 hover:bg-primary hover:shadow-[0_0_24px_rgba(255,208,0,0.22)]">
                 <Instagram className="w-5 h-5 text-muted-foreground group-hover:text-primary-foreground transition-colors" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-secondary hover:bg-primary flex items-center justify-center transition-all duration-300 group">
+              <a href="#" className="group flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary transition-all duration-300 hover:border-primary/50 hover:bg-primary hover:shadow-[0_0_24px_rgba(255,208,0,0.22)]">
                 <MessageCircle className="w-5 h-5 text-muted-foreground group-hover:text-primary-foreground transition-colors" />
               </a>
             </div>
@@ -39,7 +39,7 @@ export function Footer() {
             <ul className="space-y-3">
               {['Features', 'Classes', 'Pricing', 'Testimonials', 'Contact'].map((link) => (
                 <li key={link}>
-                  <a href={`#${link.toLowerCase()}`} className="text-muted-foreground hover:text-primary transition-colors text-sm">
+                  <a href={`#${link.toLowerCase()}`} className="text-sm text-muted-foreground transition-colors hover:text-primary">
                     {link}
                   </a>
                 </li>

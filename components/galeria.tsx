@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { ArrowUpRight, CalendarCheck, CalendarDays, Info, MessageCircle, UserRound, X } from 'lucide-react'
+import { motion, useInView } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 
 const whatsappNumber = '31612345678'
@@ -22,7 +23,7 @@ const spaces = [
     ],
     extras: ['Technogym stations', 'Form checks available', 'Progressive training plans'],
     image: '/images/infrastructure/weight-area.png',
-    className: 'lg:col-span-2 lg:row-span-2 lg:min-h-[520px]',
+    className: '',
   },
   {
     title: 'Functional Space',
@@ -39,7 +40,7 @@ const spaces = [
     ],
     extras: ['Battle ropes', 'Sled track', 'Kettlebells and mobility tools'],
     image: '/images/infrastructure/functional.png',
-    className: 'lg:col-span-1 lg:min-h-[250px]',
+    className: '',
   },
   {
     title: 'Class Studios',
@@ -56,10 +57,10 @@ const spaces = [
     ],
     extras: ['Small-group format', 'Beginner-friendly options', 'Controlled lighting and sound'],
     image: '/images/infrastructure/class-studio.png',
-    className: 'lg:col-span-1 lg:min-h-[250px]',
+    className: '',
   },
   {
-    title: 'Infrastructure',
+    title: 'Combat Area',
     description: 'A complete performance environment',
     details: 'A complete support area connecting the training floor, coaching points, recovery zones, and premium amenities into one smooth member experience.',
     professionals: [
@@ -73,7 +74,7 @@ const spaces = [
     ],
     extras: ['Guided onboarding', 'Recovery support', 'Premium member assistance'],
     image: '/images/infrastructure/combat.png',
-    className: 'lg:col-span-2 lg:min-h-[250px]',
+    className: '',
   },
   {
     title: 'Spinning Studio',
@@ -90,7 +91,7 @@ const spaces = [
     ],
     extras: ['Reserved bikes', 'Music-led intervals', 'Beginner setup support'],
     image: '/images/infrastructure/spinning.png',
-    className: 'lg:col-span-2 lg:min-h-[260px]',
+    className: '',
   },
   {
     title: 'Premium Lounge',
@@ -107,31 +108,14 @@ const spaces = [
     ],
     extras: ['Hydration station', 'Recovery guidance', 'Quiet planning area'],
     image: '/images/infrastructure/premium.png',
-    className: 'lg:col-span-1 lg:min-h-[260px]',
+    className: '',
   },
 ]
 
 export function Galeria() {
   const sectionRef = useRef<HTMLElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
+  const isVisible = useInView(sectionRef, { once: true, amount: 0.12 })
   const [selectedSpace, setSelectedSpace] = useState<(typeof spaces)[number] | null>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
 
   useEffect(() => {
     if (!selectedSpace) return
@@ -148,61 +132,100 @@ export function Galeria() {
 
   return (
     <section ref={sectionRef} id="virtual-tour" className="relative overflow-hidden bg-secondary/30 px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-32">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className={`mb-12 flex flex-col gap-5 transition-all duration-700 sm:mb-16 lg:flex-row lg:items-end lg:justify-between lg:gap-6 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,208,0,0.32),transparent)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_12%,rgba(255,208,0,0.055),transparent_34%),radial-gradient(circle_at_82%_78%,rgba(255,208,0,0.045),transparent_30%)]" />
+
+      <div className="relative mx-auto max-w-7xl">
+        <motion.div
+          className="mb-12 flex flex-col gap-5 sm:mb-16 lg:flex-row lg:items-end lg:justify-between lg:gap-6"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
           <div>
-            <span className="inline-block text-primary text-sm font-bold tracking-wider uppercase mb-4">Our Spaces</span>
-            <h2 className="text-3xl font-black text-foreground text-balance sm:text-4xl lg:text-6xl">
+            <span className="premium-kicker mb-4 inline-block text-sm font-bold uppercase tracking-wider text-primary">Our Spaces</span>
+            <h2 className="text-balance text-3xl font-black text-foreground sm:text-4xl lg:text-6xl">
               World-class
-              <span className="ml-2 text-primary sm:ml-3">infrastructure</span>
+              <span className="premium-metallic-text ml-2 sm:ml-3">infrastructure</span>
             </h2>
           </div>
-          <p className="max-w-md text-base text-muted-foreground sm:text-lg">
+          <motion.p
+            className="max-w-md text-base text-muted-foreground sm:text-lg"
+            initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
+            animate={isVisible ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 14, filter: 'blur(8px)' }}
+            transition={{ duration: 0.65, delay: 0.16, ease: 'easeOut' }}
+          >
             Every square meter was designed to maximize your experience and results.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <motion.div
+          initial="hidden"
+          animate={isVisible ? 'visible' : 'hidden'}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.09,
+                delayChildren: 0.24,
+              },
+            },
+          }}
+        >
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {spaces.map((space, idx) => (
-              <div
+              <motion.button
+                type="button"
                 key={space.title}
-                className={`group relative min-h-[260px] overflow-hidden rounded-lg border border-border transition-all duration-500 hover:border-primary/60 sm:min-h-[300px] ${space.className}`}
+                aria-label={`Open details about ${space.title}`}
+                onClick={() => setSelectedSpace(space)}
+                className={`group relative min-h-[280px] cursor-pointer overflow-hidden rounded-lg border border-border bg-card text-left shadow-[0_18px_50px_rgba(0,0,0,0.22)] transition-all duration-500 hover:border-primary/55 hover:shadow-[0_24px_70px_rgba(0,0,0,0.34),0_0_42px_rgba(255,208,0,0.09),inset_0_1px_0_rgba(255,255,255,0.06)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:min-h-[300px] ${space.className}`}
+                variants={{
+                  hidden: { opacity: 0, y: 34 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.62, ease: [0.22, 1, 0.36, 1] },
+                  },
+                }}
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.28, ease: 'easeOut' }}
               >
                 <Image
                   src={space.image}
                   alt={space.title}
                   fill
                   sizes="(min-width: 1024px) 50vw, (min-width: 768px) 50vw, 100vw"
-                  className="object-cover opacity-70 transition-all duration-700 group-hover:opacity-95 group-hover:scale-105"
+                  className="object-cover opacity-90 transition-transform duration-700 ease-out group-hover:scale-[1.04] group-hover:opacity-100"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background/10" />
-                <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(255,208,0,0.08)_0,rgba(255,208,0,0.08)_8px,transparent_8px,transparent_18px)] opacity-40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/92 via-background/42 to-transparent" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,208,0,0.16),transparent_36%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute inset-0 rounded-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-1px_0_rgba(255,208,0,0.12)]" />
+
                 <div className="absolute inset-0 flex flex-col justify-between p-5 sm:p-6 lg:p-8">
-                  <div className="flex items-start justify-between gap-4">
-                    <span className="text-4xl font-black text-primary/35 sm:text-5xl lg:text-6xl">
+                  <div className="flex min-h-14 items-start justify-between gap-4">
+                    <span className="font-mono text-4xl font-black leading-none text-primary/70 drop-shadow-[0_0_18px_rgba(255,208,0,0.18)] sm:text-5xl lg:text-6xl">
                       {String(idx + 1).padStart(2, '0')}
                     </span>
-                    <button
-                      type="button"
-                      aria-label={`Open details about ${space.title}`}
-                      onClick={() => setSelectedSpace(space)}
-                      className="flex h-11 w-11 items-center justify-center rounded-full bg-primary transition-all duration-300 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-12 sm:w-12 lg:translate-y-2 lg:scale-75 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:scale-100 lg:group-hover:opacity-100 lg:group-focus-visible:translate-y-0 lg:group-focus-visible:scale-100 lg:group-focus-visible:opacity-100"
+                    <span
+                      aria-hidden="true"
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary text-primary-foreground shadow-[0_0_24px_rgba(255,208,0,0.18)] transition-all duration-300 sm:h-12 sm:w-12 lg:translate-y-2 lg:scale-90 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:scale-100 lg:group-hover:opacity-100 lg:group-focus-visible:translate-y-0 lg:group-focus-visible:scale-100 lg:group-focus-visible:opacity-100"
                     >
-                      <ArrowUpRight className="w-5 h-5 text-primary-foreground" />
-                    </button>
+                      <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-focus-visible:translate-x-0.5 group-focus-visible:-translate-y-0.5" />
+                    </span>
                   </div>
 
-                  <div>
-                    <h3 className="mb-3 text-xl font-black text-foreground sm:text-2xl lg:text-3xl">{space.title}</h3>
-                    <p className="text-sm font-medium text-muted-foreground lg:text-base">{space.description}</p>
+                  <div className="max-w-[92%]">
+                    <h3 className="mb-3 text-xl font-black leading-tight text-foreground drop-shadow-[0_2px_16px_rgba(0,0,0,0.45)] sm:text-2xl lg:text-3xl">{space.title}</h3>
+                    <p className="text-sm font-medium leading-relaxed text-foreground/75 lg:text-base">{space.description}</p>
                   </div>
                 </div>
-              </div>
+
+                <span className="pointer-events-none absolute left-5 right-5 top-0 h-px bg-gradient-to-r from-transparent via-primary/45 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              </motion.button>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {selectedSpace && (

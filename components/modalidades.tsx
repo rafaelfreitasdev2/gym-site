@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { ArrowUpRight, Bike, CalendarCheck, CalendarDays, Dumbbell, Flame, HeartPulse, MessageCircle, Music, Swords, Target, UserRound, Wind, X, Zap } from 'lucide-react'
+import { motion, useInView } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 
 const whatsappNumber = '31612345678'
@@ -113,27 +114,31 @@ const classes = [
   },
 ]
 
+const easeOutPremium = [0.22, 1, 0.36, 1] as const
+
+const gridVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.24,
+    },
+  },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 34 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: easeOutPremium },
+  },
+}
+
 export function Modalidades() {
   const sectionRef = useRef<HTMLElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
+  const isVisible = useInView(sectionRef, { once: true, amount: 0.12 })
   const [selectedClass, setSelectedClass] = useState<(typeof classes)[number] | null>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
 
   useEffect(() => {
     if (!selectedClass) return
@@ -149,44 +154,72 @@ export function Modalidades() {
   }, [selectedClass])
 
   return (
-    <section ref={sectionRef} id="classes" className="relative bg-background px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-28">
-      <div className="max-w-7xl mx-auto relative">
-        <div className={`mb-12 text-center transition-all duration-700 sm:mb-16 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <span className="inline-block text-primary text-sm font-bold tracking-wider uppercase mb-4">Classes</span>
-          <h2 className="mb-5 text-3xl font-black text-foreground text-balance sm:text-4xl lg:mb-6 lg:text-6xl">
-            Find your
-            <span className="ml-2 text-primary sm:ml-3">passion</span>
-          </h2>
-          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-            From classic modalities to the latest trends, we have the perfect activity for you.
-          </p>
-        </div>
+    <section ref={sectionRef} id="classes" className="relative overflow-hidden bg-background px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-28">
+      <div className="premium-feature-grid absolute inset-0 opacity-55" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,208,0,0.32),transparent)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,208,0,0.055),transparent_34%),radial-gradient(circle_at_82%_84%,rgba(255,208,0,0.04),transparent_32%)]" />
 
-        <div className={`grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <div className="relative mx-auto max-w-7xl">
+        <motion.div
+          className="mb-12 text-center sm:mb-16"
+          initial={{ opacity: 0, y: 32 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
+          transition={{ duration: 0.7, ease: easeOutPremium }}
+        >
+          <span className="premium-kicker mb-4 inline-block text-sm font-bold uppercase tracking-wider text-primary">Classes</span>
+          <h2 className="mb-5 text-balance text-3xl font-black text-foreground sm:text-4xl lg:mb-6 lg:text-6xl">
+            Find your
+            <span className="premium-metallic-text ml-2 sm:ml-3">passion</span>
+          </h2>
+          <motion.p
+            className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg"
+            initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
+            animate={isVisible ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 14, filter: 'blur(8px)' }}
+            transition={{ duration: 0.65, delay: 0.16, ease: 'easeOut' }}
+          >
+            From classic modalities to the latest trends, we have the perfect activity for you.
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+          initial="hidden"
+          animate={isVisible ? 'visible' : 'hidden'}
+          variants={gridVariants}
+        >
           {classes.map((cls) => {
             const Icon = cls.icon
 
             return (
-              <button
+              <motion.button
                 type="button"
                 key={cls.title}
+                aria-label={`Open details about ${cls.title}`}
                 onClick={() => setSelectedClass(cls)}
-                className="group relative min-h-[300px] overflow-hidden rounded-lg border border-border bg-card text-left transition-all duration-500 hover:-translate-y-1 hover:border-primary/60 hover:shadow-[0_24px_70px_rgba(0,0,0,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:min-h-[340px] lg:min-h-[360px]"
+                className="group relative min-h-[300px] cursor-pointer overflow-hidden rounded-lg border border-border bg-[linear-gradient(180deg,rgba(37,37,35,0.96),rgba(29,29,27,0.98))] text-left shadow-[0_18px_50px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.03)] transition-all duration-500 hover:border-primary/55 hover:shadow-[0_24px_70px_rgba(0,0,0,0.34),0_0_42px_rgba(255,208,0,0.09),inset_0_1px_0_rgba(255,255,255,0.06)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:min-h-[340px] lg:min-h-[360px]"
+                variants={cardVariants}
+                whileHover={{ y: -6, scale: 1.01 }}
+                transition={{ duration: 0.28, ease: 'easeOut' }}
               >
-                <div className="absolute left-5 top-5 z-20 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/15 text-primary transition-all duration-500 group-hover:bg-primary group-hover:text-primary-foreground sm:left-8 sm:top-8 sm:h-[60px] sm:w-[60px]">
+                <div className="pointer-events-none absolute inset-0 z-10 rounded-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-1px_0_rgba(255,208,0,0.1)]" />
+                <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(255,208,0,0.15),transparent_36%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                <div className="absolute left-5 top-5 z-20 flex h-12 w-12 items-center justify-center rounded-lg border border-primary/20 bg-primary/15 text-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_12px_28px_rgba(0,0,0,0.18)] transition-all duration-500 group-hover:border-primary/50 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-[0_0_30px_rgba(255,208,0,0.34)] sm:left-8 sm:top-8 sm:h-[60px] sm:w-[60px]">
                   <Icon className="h-7 w-7" strokeWidth={2.4} />
                 </div>
 
-                <div className="absolute right-5 top-5 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground transition-all duration-300 sm:right-8 sm:top-8 sm:h-12 sm:w-12 lg:translate-y-2 lg:scale-75 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:scale-100 lg:group-hover:opacity-100 lg:group-focus-visible:translate-y-0 lg:group-focus-visible:scale-100 lg:group-focus-visible:opacity-100">
-                  <ArrowUpRight className="h-5 w-5" />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute right-5 top-5 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-primary/30 bg-primary text-primary-foreground shadow-[0_0_24px_rgba(255,208,0,0.18)] transition-all duration-300 sm:right-8 sm:top-8 sm:h-12 sm:w-12 lg:translate-y-2 lg:scale-90 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:scale-100 lg:group-hover:opacity-100 lg:group-focus-visible:translate-y-0 lg:group-focus-visible:scale-100 lg:group-focus-visible:opacity-100"
+                >
+                  <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-focus-visible:translate-x-0.5 group-focus-visible:-translate-y-0.5" />
                 </div>
 
-                <div className="absolute inset-x-0 top-0 h-[58%] overflow-hidden">
-                  <div className="absolute inset-0 bg-primary/10 opacity-0 mix-blend-screen transition-opacity duration-500 group-hover:opacity-100" />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/10 to-card z-10" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-card/70 via-card/10 to-transparent z-10" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/35 to-transparent z-10" />
-                  <div className="relative h-full w-full opacity-60 transition-all duration-700 group-hover:scale-105 group-hover:opacity-90">
+                <div className="absolute inset-x-0 top-0 h-[60%] overflow-hidden">
+                  <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-background/8 to-card" />
+                  <div className="absolute inset-0 z-10 bg-gradient-to-r from-card/62 via-card/8 to-transparent" />
+                  <div className="absolute inset-0 z-10 bg-gradient-to-t from-card via-card/34 to-transparent" />
+                  <div className="relative h-full w-full opacity-72 contrast-110 saturate-105 transition-all duration-700 group-hover:scale-[1.04] group-hover:opacity-95">
                     <Image
                       src={cls.image}
                       alt={cls.title}
@@ -198,20 +231,28 @@ export function Modalidades() {
                 </div>
 
                 <div className="absolute inset-x-0 bottom-0 z-20 p-5 sm:p-8">
-                  <h3 className="mb-3 text-xl font-black text-foreground sm:text-2xl">{cls.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">{cls.description}</p>
+                  <h3 className="mb-3 text-xl font-black leading-tight text-foreground transition-colors duration-300 group-hover:text-primary sm:text-2xl">{cls.title}</h3>
+                  <p className="text-sm leading-relaxed text-foreground/72 sm:text-base">{cls.description}</p>
                 </div>
-              </button>
+
+                <span className="pointer-events-none absolute left-5 right-5 top-0 z-20 h-px bg-gradient-to-r from-transparent via-primary/45 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <span className="absolute bottom-0 left-0 z-20 h-1 w-0 rounded-b-lg bg-gradient-to-r from-primary to-primary/40 transition-all duration-500 group-hover:w-full" />
+              </motion.button>
             )
           })}
-        </div>
+        </motion.div>
 
         {/* Bottom CTA */}
-        <div className={`text-center mt-16 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <motion.div
+          className="mt-16 text-center"
+          initial={{ opacity: 0, y: 18 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+          transition={{ duration: 0.55, delay: 0.58, ease: 'easeOut' }}
+        >
           <p className="text-muted-foreground mb-4">
             All classes available for <span className="text-primary font-bold">Premium</span> and <span className="text-primary font-bold">Elite</span> members
           </p>
-        </div>
+        </motion.div>
       </div>
 
       {selectedClass && (

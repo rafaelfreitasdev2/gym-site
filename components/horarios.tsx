@@ -1,7 +1,8 @@
 'use client'
 
 import { Clock, Sparkles } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { motion, useInView } from 'motion/react'
+import { useRef } from 'react'
 
 const schedule = [
   { day: 'Monday', weights: '5am - 11pm', classes: '7am, 12pm, 6pm, 8pm', combat: '7pm - 9pm' },
@@ -15,42 +16,36 @@ const schedule = [
 
 export function Horarios() {
   const sectionRef = useRef<HTMLElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
+  const isVisible = useInView(sectionRef, { once: true, amount: 0.12 })
 
   return (
-    <section ref={sectionRef} className="relative bg-background px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-32">
-      <div className="max-w-5xl mx-auto">
+    <section ref={sectionRef} className="relative overflow-hidden bg-background px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-32">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(255,208,0,0.045),transparent_34%)]" />
+      <div className="relative mx-auto max-w-5xl">
         {/* Header */}
-        <div className={`mb-12 text-center transition-all duration-700 sm:mb-16 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <span className="inline-block text-primary text-sm font-bold tracking-wider uppercase mb-4">Hours</span>
-          <h2 className="mb-5 text-3xl font-black text-foreground text-balance sm:text-4xl lg:mb-6 lg:text-6xl">
+        <motion.div
+          className="mb-12 text-center sm:mb-16"
+          initial={{ opacity: 0, y: 32 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <span className="premium-kicker mb-4 inline-block text-sm font-bold uppercase tracking-wider text-primary">Hours</span>
+          <h2 className="mb-5 text-balance text-3xl font-black text-foreground sm:text-4xl lg:mb-6 lg:text-6xl">
             Your time,
-            <span className="ml-2 text-primary sm:ml-3">your schedule</span>
+            <span className="premium-metallic-text ml-2 sm:ml-3">your schedule</span>
           </h2>
           <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
             Flexible hours to fit your routine. Premium and Elite members have 24-hour access.
           </p>
-        </div>
+        </motion.div>
 
         {/* Schedule Table */}
-        <div className={`bg-card border border-border rounded-2xl overflow-hidden transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <motion.div
+          className="overflow-hidden rounded-lg border border-border bg-card/90 shadow-[0_18px_50px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.03)]"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.65, delay: 0.18, ease: 'easeOut' }}
+        >
           <div className="overflow-x-auto">
             <table className="w-full min-w-[720px]">
               <thead>
@@ -80,11 +75,16 @@ export function Horarios() {
               </tbody>
             </table>
           </div>
-        </div>
+        </motion.div>
 
         {/* 24/7 Banner */}
-        <div className={`mt-8 flex flex-col items-start justify-center gap-4 rounded-lg border border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 p-5 transition-all duration-700 delay-400 sm:flex-row sm:items-center sm:p-6 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/20">
+        <motion.div
+          className="mt-8 flex flex-col items-start justify-center gap-4 rounded-lg border border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 p-5 shadow-[0_18px_50px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.04)] sm:flex-row sm:items-center sm:p-6"
+          initial={{ opacity: 0, y: 24 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+          transition={{ duration: 0.55, delay: 0.34, ease: 'easeOut' }}
+        >
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-primary/20 bg-primary/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
             <Clock className="w-6 h-6 text-primary" />
           </div>
           <div>
@@ -96,7 +96,7 @@ export function Horarios() {
               Train late night, holidays, and weekends without restrictions
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

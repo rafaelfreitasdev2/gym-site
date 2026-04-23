@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Star, Quote } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
@@ -12,35 +13,35 @@ const testimonials = [
     result: { value: 12, prefix: '+', suffix: 'kg muscle mass' },
     duration: { value: 8, suffix: ' months' },
     feedback: 'Warehouse completely changed my relationship with exercise. The professionals understand exactly what you need.',
-    avatar: 'JW'
+    avatarImage: '/images/testemonials/James Wilson.png'
   },
   {
     name: 'Sophie Laurent',
     result: { value: 18, prefix: '-', suffix: 'kg body fat' },
     duration: { value: 6, suffix: ' months' },
     feedback: 'Welcoming environment, top-notch equipment, and a team that truly cares about your results.',
-    avatar: 'SL'
+    avatarImage: '/images/testemonials/Sophie Laurent.png'
   },
   {
     name: 'Robert Mueller',
     result: { label: 'Marathon finisher' },
     duration: { value: 1, suffix: ' year' },
     feedback: 'From sedentary to marathon runner. The structure and support at Warehouse were essential to this achievement.',
-    avatar: 'RM'
+    avatarImage: '/images/testemonials/Robert Mueller.png'
   },
   {
     name: 'Emma Thompson',
     result: { label: 'Full flexibility' },
     duration: { value: 4, suffix: ' months' },
     feedback: 'The pilates classes are incredible. Attentive instructors and an environment that inspires you to push beyond.',
-    avatar: 'ET'
+    avatarImage: '/images/testemonials/Emma Thompson.png'
   },
   {
     name: 'Lucas Martins',
     result: { value: 9, prefix: '+', suffix: 'kg strength gain' },
     duration: { value: 5, suffix: ' months' },
     feedback: 'The structure, the classes, and the coaches made training feel consistent for the first time in my life.',
-    avatar: 'LM'
+    avatarImage: '/images/testemonials/Lucas Martins.png'
   }
 ]
 
@@ -116,7 +117,7 @@ export function Depoimentos() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-secondary/30 px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-28">
+    <section ref={sectionRef} id="testimonials" className="relative overflow-hidden bg-secondary/30 px-4 py-20 sm:px-6 sm:py-24 lg:px-12 lg:py-28">
       {/* Background Decoration */}
       <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
@@ -124,10 +125,10 @@ export function Depoimentos() {
       <div className="max-w-7xl mx-auto relative">
         {/* Header */}
         <div className={`mb-10 text-center transition-all duration-700 sm:mb-12 lg:mb-14 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <span className="inline-block text-primary text-sm font-bold tracking-wider uppercase mb-4">Testimonials</span>
+          <span className="premium-kicker mb-4 inline-block text-sm font-bold uppercase tracking-wider text-primary">Testimonials</span>
           <h2 className="mb-5 text-3xl font-black text-foreground text-balance sm:text-4xl lg:mb-6 lg:text-6xl">
             Stories of
-            <span className="ml-2 text-primary sm:ml-3">transformation</span>
+            <span className="premium-metallic-text ml-2 sm:ml-3">transformation</span>
           </h2>
           <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
             Over <AnimatedNumber value={500} start={isVisible} /> lives transformed. Discover some of the stories from those who are already part of the Warehouse family.
@@ -144,7 +145,7 @@ export function Depoimentos() {
               {carouselTestimonials.map((testimonial, idx) => (
             <div
               key={`${testimonial.name}-${idx}`}
-              className="group flex min-h-[300px] w-[min(82vw,420px)] shrink-0 flex-col rounded-lg border border-border bg-card p-6 transition-all duration-500 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(255,208,0,0.1)] sm:w-[500px] sm:p-8 lg:w-[560px]"
+              className="group flex min-h-[300px] w-[min(82vw,420px)] shrink-0 flex-col rounded-lg border border-border bg-card/90 p-6 shadow-[0_18px_50px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.03)] transition-all duration-500 hover:border-primary/50 hover:shadow-[0_24px_64px_rgba(0,0,0,0.24),0_0_42px_rgba(255,208,0,0.08)] sm:w-[500px] sm:p-8 lg:w-[560px]"
               aria-hidden={idx >= testimonials.length}
             >
               {/* Quote Icon */}
@@ -166,8 +167,14 @@ export function Depoimentos() {
               <div className="mt-auto flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-4">
                   {/* Avatar */}
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <span className="text-primary font-bold">{testimonial.avatar}</span>
+                  <div className="relative h-12 w-12 overflow-hidden rounded-full border border-primary/20 bg-primary/10">
+                    <Image
+                      src={testimonial.avatarImage}
+                      alt={testimonial.name}
+                      fill
+                      sizes="48px"
+                      className="object-cover"
+                    />
                   </div>
                   <div>
                     <p className="font-bold text-foreground">{testimonial.name}</p>
@@ -185,7 +192,7 @@ export function Depoimentos() {
                 </div>
 
                 {/* Result Badge */}
-                <div className="w-fit rounded-full bg-primary/10 px-4 py-2">
+                <div className="w-fit rounded-full border border-primary/20 bg-primary/10 px-4 py-2">
                   <span className="text-primary font-bold text-sm">
                     {'label' in testimonial.result ? (
                       testimonial.result.label
@@ -213,7 +220,7 @@ export function Depoimentos() {
           {stats.map((stat, idx) => (
             <div
               key={stat.label}
-              className={`rounded-lg border border-border bg-card p-4 text-center transition-all duration-700 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(255,208,0,0.1)] sm:p-6 ${statsVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+              className={`rounded-lg border border-border bg-card/90 p-4 text-center shadow-[0_18px_50px_rgba(0,0,0,0.14),inset_0_1px_0_rgba(255,255,255,0.03)] transition-all duration-700 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_24px_64px_rgba(0,0,0,0.22),0_0_42px_rgba(255,208,0,0.08)] sm:p-6 ${statsVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
               style={{ transitionDelay: `${idx * 140}ms` }}
             >
               <p className={`mb-1 text-2xl font-black text-primary transition-all duration-700 hover:scale-110 sm:text-3xl ${statsVisible ? 'tracking-normal' : 'tracking-[0.35em]'}`}>
